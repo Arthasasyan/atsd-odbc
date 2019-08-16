@@ -94,6 +94,9 @@ void Statement::sendRequest(IResultMutatorPtr mutator, bool meta_mode) {
 #endif
             + (connection.useragent.empty() ? "" : " " + connection.useragent));
 
+    if(!isPrepared())
+        prepareQuery(getQuery());
+
     LOG(request.getMethod() << " " << connection.session->getHost() << request.getURI() << " body=" << prepared_query
                             << " UA=" << request.get("User-Agent"));
 
